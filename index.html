@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            background-color: #212529;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -26,7 +26,7 @@
             font-size: 24px;
             font-weight: bold;
             margin-bottom: 30px;
-            color: #333;
+            color: #ffffff;
         }
         .link-btn {
             display: block;
@@ -51,35 +51,72 @@
         .whatsapp {
             background-color: #25D366;
         }
+        
+        .gallery-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 35px 0 15px 0;
+            color: #ffffff;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            width: 100%;
+            max-width: 300px;
+        }
+        .gallery img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
         .footer {
             margin-top: auto;
             padding-top: 50px;
             font-size: 14px;
         }
         .footer a {
-            color: #666;
+            color: #cccccc;
             text-decoration: none;
         }
         .footer a:hover {
             text-decoration: underline;
+            color: #ffffff;
         }
     </style>
 </head>
 <body>
 
-    <!-- Logo ou foto (pode apagar esta linha se não for usar imagem) -->
-  
+    <img src="logo mwfix.png" alt="Logo MWFix" class="profile-pic">
 
-    <!-- Nome da Cliente -->
     <div class="title">MWFix</div>
 
-    <!-- Botões da Cliente -->
     <a href="https://www.instagram.com/_mwfix/" class="link-btn instagram" target="_blank">Instagram</a>
-    <a href="https://wa.me/+5588994855582" class="link-btn whatsapp" target="_blank">WhatsApp</a>
+    <a href="https://wa.me/5588994855582" class="link-btn whatsapp" target="_blank">WhatsApp</a>
 
-    <!-- Assinatura MWfix -->
+    <div class="gallery-title">Nossos Projetos</div>
+
+    <div class="gallery">
+        <img src="8.jpeg" alt="Projeto 8">
+        <img src="1.jpeg" alt="Projeto 1">
+        <img src="2.jpeg" alt="Projeto 2">
+        <img src="3.jpeg" alt="Projeto 3">
+        <img src="4.jpeg" alt="Projeto 4">
+        <img src="5.jpeg" alt="Projeto 5">
+        <img src="6.jpeg" alt="Projeto 6">
+        <img src="7.jpeg" alt="Projeto 7">
+        <img src="9.jpeg" alt="Projeto 9">
+        <img src="10.jpeg" alt="Projeto 10">
+        <img src="11.jpeg" alt="Projeto 11">
+        <img src="12.jpeg" alt="Projeto 12">
+        <img src="13.jpeg" alt="Projeto 13">
+        <img src="14.jpeg" alt="Projeto 14">
+    </div>
+
     <div class="footer">
-        <a href="https://wa.me/+5588994855582" target="_blank">Tags desenvolvidas por <b>MWfix</b> - Personalize a sua</a>
+        <a href="https://wa.me/5588994855582" target="_blank">Tags desenvolvidas por <b>MWfix</b> - Personalize a sua</a>
     </div>
 
 </body>

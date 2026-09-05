@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gerência MWfix</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+            background-color: #1a1a1a;
+            background-image: url('imagemfundo.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Press Start 2P', cursive;
+            text-align: center;
+        }
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 20px 50px 20px;
+        }
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border: 3px solid #ffffff;
+        }
+        .texto-retro {
+            color: #ff0000;
+            font-size: 16px;
+            margin-top: -10px;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            line-height: 1.5;
+            text-shadow: 2px 2px 0px #000000, -1px -1px 0px #ffffff;
+        }
+        .lista-jogos {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 320px;
+        }
+        .botao-jogo {
+            background-color: #0066ff;
+            color: white;
+            border: 3px solid #ffffff;
+            padding: 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+            text-decoration: none;
+            text-transform: uppercase;
+            box-shadow: 0px 4px 0px #fff;
+            display: block;
+        }
+        .botao-jogo:active {
+            box-shadow: 0px 0px 0px #fff;
+            transform: translateY(4px);
+        }
+        .mensagem {
+            color: #ffcc00;
+            font-size: 12px;
+            line-height: 1.5;
+            text-shadow: 2px 2px 0px #000000;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <img src="https://wesleyalm.github.io/tagsmwfix/logo%20mwfix.png" alt="Logo MWfix" class="logo">
+        <div class="texto-retro">GERÊNCIA MWFIX</div>
+        
+        <div id="lista-jogos" class="lista-jogos">
+            <div class="mensagem">Buscando clientes...</div>
+        </div>
+    </div>
+
+    <script>
+        const donoRepositorio = 'wesleyalm';
+        const nomeRepositorio = 'tagsmwfix'; 
+        
+        const urlApi = `https://api.github.com/repos/${donoRepositorio}/${nomeRepositorio}/contents/`;
+
+        fetch(urlApi)
+            .then(resposta => resposta.json())
+            .then(dados => {
+                const divLista = document.getElementById('lista-jogos');
+                divLista.innerHTML = ''; 
+
+                const arquivos = dados.filter(arquivo => arquivo.name.endsWith('.html') && arquivo.name !== 'gerencia.html');
+
+                if (arquivos.length === 0) {
+                    divLista.innerHTML = '<div class="mensagem">Nenhum cliente encontrado.</div>';
+                    return;
+                }
+
+                arquivos.forEach(arquivo => {
+                    const botao = document.createElement('a');
+                    botao.href = arquivo.name; 
+                    botao.className = 'botao-jogo';
+                    
+                    botao.innerText = arquivo.name.replace('.html', '');
+
+                    divLista.appendChild(botao);
+                });
+            })
+            .catch(erro => {
+                document.getElementById('lista-jogos').innerHTML = '<div class="mensagem">Erro ao carregar a lista. Verifique se o repositório é público.</div>';
+            });
+    </script>
+
+</body>
+</html>

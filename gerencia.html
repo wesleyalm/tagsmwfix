@@ -90,7 +90,8 @@
         const donoRepositorio = 'wesleyalm';
         const nomeRepositorio = 'tagsmwfix'; 
         
-        const urlApi = `https://api.github.com/repos/${donoRepositorio}/${nomeRepositorio}/contents/`;
+        // Nova URL da API: Busca todas as pastas e arquivos de uma vez (recursive=1)
+        const urlApi = `https://api.github.com/repos/${donoRepositorio}/${nomeRepositorio}/git/trees/main?recursive=1`;
 
         fetch(urlApi)
             .then(resposta => resposta.json())
@@ -98,7 +99,15 @@
                 const divLista = document.getElementById('lista-jogos');
                 divLista.innerHTML = ''; 
 
-                const arquivos = dados.filter(arquivo => arquivo.name.endsWith('.html') && arquivo.name !== 'gerencia.html');
+                // A nova API guarda os arquivos dentro de "tree"
+                if (!dados.tree) {
+                    divLista.innerHTML = '<div class="mensagem">Nenhum cliente encontrado ou erro na leitura.</div>';
+                    return;
+                }
+
+                // Filtra apenas HTMLs e ignora a própria página de gerência
+                // Usamos ".path" porque agora ele traz o caminho completo das pastas
+                const arquivos = dados.tree.filter(arquivo => arquivo.path.endsWith('.html') && !arquivo.path.endsWith('gerencia.html'));
 
                 if (arquivos.length === 0) {
                     divLista.innerHTML = '<div class="mensagem">Nenhum cliente encontrado.</div>';
@@ -107,10 +116,11 @@
 
                 arquivos.forEach(arquivo => {
                     const botao = document.createElement('a');
-                    botao.href = arquivo.name; 
+                    botao.href = arquivo.path; // O link agora aponta para a pasta correta
                     botao.className = 'botao-jogo';
                     
-                    botao.innerText = arquivo.name.replace('.html', '');
+                    // O texto do botão vai mostrar o caminho (ex: pepytha/index)
+                    botao.innerText = arquivo.path.replace('.html', '');
 
                     divLista.appendChild(botao);
                 });
